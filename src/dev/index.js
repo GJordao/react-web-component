@@ -49,7 +49,9 @@ module.exports = {
 
       static get observedAttributes() {
         if(this.extractAttributes) {
-          return Object.keys(this.extractAttributes);
+          const e = Object.keys(this.extractAttributes);
+          debugger;
+          return e;
         }
 
         return [];

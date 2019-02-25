@@ -18,6 +18,5 @@ module.exports = function extractAttributes(nodeMap) {
     const camelCasedKey = key.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
     obj[camelCasedKey] = attribute[key];
   }
-  debugger;
   return obj;
 };

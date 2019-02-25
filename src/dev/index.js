@@ -42,6 +42,19 @@ module.exports = {
     }
 
     const proto = class extends HTMLElement {
+      constructor() {
+        super();
+        this.extractedAttributes = extractAttributes(this);
+      }
+
+      static get observedAttributes() {
+        if(this.extractAttributes) {
+          return Object.keys(this.extractAttributes);
+        }
+
+        return [];
+      }
+
       connectedCallback() {
         const webComponentInstance = this;
         let mountPoint = webComponentInstance;
@@ -64,7 +77,7 @@ module.exports = {
           retargetEvents(shadowRoot);
         }
 
-        ReactDOM.render(React.cloneElement(app, extractAttributes(webComponentInstance)) , mountPoint, function () {
+        ReactDOM.render(React.cloneElement(app, this.extractedAttributes) , mountPoint, function () {
             appInstance = this;
 
             callConstructorHook(webComponentInstance);

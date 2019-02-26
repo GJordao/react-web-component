@@ -42,6 +42,12 @@ module.exports = {
     }
 
     const proto = class extends HTMLElement {
+      constructor(...args) {
+        super(...args);
+        console.log("Calling contructor");
+      }
+      
+
       static get observedAttributes() {
         const extractedAttributes = extractAttributes(this);
         console.log("Calling observedAttributes with: ", extractedAttributes);

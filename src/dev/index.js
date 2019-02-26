@@ -49,12 +49,11 @@ module.exports = {
       
 
       static get observedAttributes() {
-        const webComponentInstance = this;
-        const extractedAttributes = extractAttributes(webComponentInstance);
-        console.log("Calling observedAttributes with: ", webComponentInstance);
+        debugger;
+        const extractedAttributes = extractAttributes(this);
+        console.log("Calling observedAttributes with: ", extractedAttributes);
         if(extractedAttributes) {
           const e = Object.keys(extractAttributes);
-          debugger;
           return e;
         }
 

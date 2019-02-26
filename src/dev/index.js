@@ -14,8 +14,9 @@ module.exports = {
    * @param {Object} config - The config object used to generate the web component.
    * @param {string} config.useShadowDom - If the value is set to 'true' the web component will use the `shadowDom`. The default value is true.
    * @param {string} config.cssFile - The css file location in the distribution server. Optional.
+   * @param {array} config.props - An array containing the React props to listen for changes in `static get observedAttributes`.
    */
-  create: (app, tagName, config = { useShadowDom: true }) => {
+  create: (app, tagName, config = { useShadowDom: true, props: [] }) => {
     let appInstance;
 
     const lifeCycleHooks = {
@@ -42,22 +43,8 @@ module.exports = {
     }
 
     const proto = class extends HTMLElement {
-      constructor(...args) {
-        super(...args);
-        console.log("Calling contructor");
-      }
-      
-
       static get observedAttributes() {
-        debugger;
-        const extractedAttributes = extractAttributes(this);
-        console.log("Calling observedAttributes with: ", extractedAttributes);
-        if(extractedAttributes) {
-          const e = Object.keys(extractAttributes);
-          return e;
-        }
-
-        return [];
+        return config.props;
       }
 
       connectedCallback() {

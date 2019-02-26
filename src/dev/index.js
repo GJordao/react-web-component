@@ -42,14 +42,11 @@ module.exports = {
     }
 
     const proto = class extends HTMLElement {
-      constructor(...args) {
-        super(...args);
-        this.extractedAttributes = extractAttributes(this);
-      }
-
       static get observedAttributes() {
-        if(this.extractAttributes) {
-          const e = Object.keys(this.extractAttributes);
+        const extractedAttributes = extractAttributes(this);
+        console.log("Calling observedAttributes with: ", extractedAttributes);
+        if(extractedAttributes) {
+          const e = Object.keys(extractAttributes);
           debugger;
           return e;
         }
@@ -79,7 +76,7 @@ module.exports = {
           retargetEvents(shadowRoot);
         }
 
-        ReactDOM.render(React.cloneElement(app, this.extractedAttributes) , mountPoint, function () {
+        ReactDOM.render(React.cloneElement(app, extractAttributes(webComponentInstance)) , mountPoint, function () {
             appInstance = this;
 
             callConstructorHook(webComponentInstance);
